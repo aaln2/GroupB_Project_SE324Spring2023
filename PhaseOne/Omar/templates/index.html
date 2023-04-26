@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <style>
+     /* Style of buttons */
+    .my-button {
+      padding: 20px;
+      height: 30px;
+      background-color: #eaeaea;
+      color: #000000;
+      cursor: pointer;
+    }
+
+    /* Style for the images */
+    .my-image {
+      display: none; /* Hide the images by default */
+      height: 400px;
+      width: 40%;
+      padding: 100px;
+
+    }
+  </style>
+  <title></title>
+</head>
+<body>
+<!-- Button elements with onclick attributes to trigger the display of the images -->
+<button class="my-button" onclick="showImage(1)">Unsolved</button>
+<button class="my-button" onclick="showImage(2)">Solved</button>
+<br>
+<br>
+<hr>
+<!-- Image elements with specific IDs to manipulate them with JavaScript -->
+<img src="{{ url_for('static', filename='image1.jpg') }}" alt="My Image" id="myImage1">
+<img src="{{ url_for('static', filename='image2.jpg') }}" alt="My Image" id="myImage2">
+
+<!-- JavaScript code to display the images and hide the previously displayed image when the buttons are clicked -->
+<script>
+  var currentImageId = ""; // Variable to store the ID of the currently displayed image
+
+
+  function showImage(imageId) {
+    // Hide the previously displayed image
+    if (currentImageId !== "") {
+      document.getElementById(currentImageId).style.display = 'none';
+    }
+
+    // Show the newly clicked image
+    var imageElement = document.getElementById('myImage' + imageId);
+    imageElement.style.display = 'block';
+
+    // Update the currentImageId variable
+    currentImageId = 'myImage' + imageId;
+  }
+</script>
+
+  <script>
+  // Test that the buttons and images are initially hidden and the currentImageId variable is empty
+console.assert(document.querySelector('.my-button:nth-of-type(1)').textContent === 'Unsolved', 'Error: Button 1 text is incorrect');
+console.assert(document.querySelector('.my-button:nth-of-type(2)').textContent === 'Solved', 'Error: Button 2 text is incorrect');
+console.assert(document.getElementById('myImage1').style.display === 'none', 'Error: Image 1 is not initially hidden');
+console.assert(document.getElementById('myImage2').style.display === 'none', 'Error: Image 2 is not initially hidden');
+console.assert(currentImageId === '', 'Error: currentImageId is not initially empty');
+
+// Test that clicking button 1 shows image 1 and updates the currentImageId variable
+button1.click();
+console.assert(document.getElementById('myImage1').style.display === 'block', 'Error: Image 1 is not shown after clicking button 1');
+console.assert(currentImageId === 'myImage1', 'Error: currentImageId is not updated after clicking button 1');
+
+// Test that clicking button 2 shows image 2 and updates the currentImageId variable
+button2.click();
+console.assert(document.getElementById('myImage2').style.display === 'block', 'Error: Image 2 is not shown after clicking button 2');
+console.assert(currentImageId === 'myImage2', 'Error: currentImageId is not updated after clicking button 2');
+
+// Test that clicking button 1 again shows image 1 and updates the currentImageId variable
+button1.click();
+console.assert(document.getElementById('myImage1').style.display === 'block', 'Error: Image 1 is not shown after clicking button 1 again');
+console.assert(currentImageId === 'myImage1', 'Error: currentImageId is not updated after clicking button 1 again');
+
+  </script>
+</body>
+</html>
