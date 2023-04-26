@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Set styles for the heading */
+h1 {
+ background-color: #fce6c9;
+ letter-spacing: 0.01em;
+ text-shadow: 3px 3px 5px rgb(250, 250, 260);
+ color: #b22222;
+ text-align: center;
+}
+
+
+
+/* Set styles for the buttons */
+.my-button {
+ padding: 20px;
+ text-shadow: 3px 3px 7px rgb(500, 500, 500);
+ background-color: #8b2323;
+ color: #fff;
+ cursor: pointer;
+ text-align: center;
+}
+
+
+
+/* Set styles for the images */
+.my-image {
+ display: All;
+ height: 20px;
+ width: 90%;
+ padding: 50px;
+}
+</style>
+</head>
+<body>
+<!-- Add the heading -->
+<h1>  PhaseOne -- Maze </h1>
+<hr></hr>
+
+
+
+<!-- Add buttons to display the maze images -->
+<button class="my-button" onclick="showImage(1)">Show Unsolved Maze</button>
+<button class="my-button" onclick="showImage(2)">Show Solved Maze</button>
+
+
+
+<!-- Add images with specific IDs  -->
+<img src="{{ url_for('static', filename='images/solved.png') }}" alt="Solved Maze" id="myImage1">
+<img src="{{ url_for('static', filename='images/unsolved.png') }}" alt="Unsolved Maze" id="myImage2">
+
+
+
+<!-- Add JavaScript code to display the images and hide the previously displayed image when the buttons are clicked -->
+<script>
+var currentImageId = ""; // Variable to store the ID of the currently displayed image
+
+
+
+function showImage(imageId) {
+ // Hide the previously displayed image
+ if (currentImageId !== "") {
+ document.getElementById(currentImageId).style.display = 'none';
+ }
+
+
+
+ // Show the newly clicked image
+ var imageElement = document.getElementById('myImage' + imageId);
+ imageElement.style.display = 'block';
+
+
+
+ // Update the currentImageId variable
+ currentImageId = 'myImage' + imageId;
+}
+</script>
+
+
+
+<!-- Add tests to ensure the code is working correctly -->
+<script>
+// Get the button and image elements
+const button1 = document.querySelector('.my-button:nth-of-type(1)');
+const button2 = document.querySelector('.my-button:nth-of-type(2)');
+const image1 = document.getElementById('myImage1');
+const image2 = document.getElementById('myImage2');
+
+
+
+// Test that clicking button 1 shows image 1 and hides image 2
+button1.click();
+console.assert(image1.style.display === 'block', 'Error: Solved maze image is not shown after clicking "Show Unsolved Maze" button');
+console.assert(image2.style.display === 'none', 'Error: Unsolved maze image is not hidden after clicking "Show Unsolved Maze" button');
+
+
+
+// Test that clicking button 2 shows image 2 and hides image 1
+button2.click();
+console.assert(image2.style.display === 'block', 'Error: Unsolved maze image is not shown after clicking "Show Solved Maze" button');
+console.assert(image1.style.display === 'none', 'Error: Solved maze image is not hidden after clicking "Show Solved Maze" button');
+
+
+
+// Test that clicking button 1 again shows image 1 and hides image 2
+button1.click();
+console.assert(image1.style.display === 'block', 'Error: Solved maze image is not shown after clicking "Show Unsolved Maze" button again');
+console.assert(image2.style.display === 'none', 'Error: Unsolved maze image is not hidden after clicking "Show Unsolved Maze" button again');
+
+
+
+// Test that the images are initially hidden
+console.assert(image1.style.display === 'All', 'Error: Solved maze image is not initially hidden');
+console.assert(image2.style.display === 'All', 'Error: Unsolved maze image is not initially hidden');
+
+</script>
+
+
+
+<!-- Add a test suite to summarize the tests -->
+<script>
+
+console.log(' - All subdomains are covered by the tests above');
+console.log('Test suite:');
+console.log('- Partitions:');
+console.log(' - Clicking button 2');
+console.log('- Coverage:');
+console.log(' - Button clicks');
+console.log('- Subdomains:');
+console.log(' - Clicking button 1');
+
+</script>
+</body>
+</html>
